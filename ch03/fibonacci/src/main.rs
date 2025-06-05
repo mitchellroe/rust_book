@@ -14,29 +14,28 @@ fn get_dest_num() -> u32 {
             .read_line(&mut dest_num)
             .expect("Failed to read line");
         match dest_num.trim().parse() {
-            Ok(num) => { break num; },
+            Ok(num) => {
+                break num;
+            }
             Err(_) => {
                 println!("Invalid number, please try again");
                 continue;
-            },
+            }
         }
     }
 }
 
 fn calc_fib(target: u32) -> u32 {
-    match target {
-        0 => 0,
-        1 => 1,
-        2 => 1,
-        _ => {
-            let mut prev = 1;
-            let mut sum = 2;
-            for _ in 2..target {
-                let old_sum = sum;
-                sum = sum + prev;
-                prev = old_sum;
-            }
-            sum
-        },
+    if target == 0 {
+        0
+    } else {
+        let mut prev = 0;
+        let mut sum = 1;
+        for _ in 1..target {
+            let old_sum = sum;
+            sum = sum + prev;
+            prev = old_sum;
+        }
+        sum
     }
 }
