@@ -1,5 +1,5 @@
 fn main() {
-    let gifts=[
+    let gifts = [
         "A partridge in a pear tree",
         "Two turtle doves, and",
         "Three french hens,",
