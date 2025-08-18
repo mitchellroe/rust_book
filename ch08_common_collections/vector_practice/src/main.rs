@@ -195,7 +195,64 @@ fn ch8_2() {
     // }}}
 
     println!("### Indexing into Strings"); // {{{
+
+    // You cannot access individual characters of a String by their index like you can in other
+    // programming languages.
+    // The following is an error:
+    // let s1 = String::from("hi");
+    // let h = s1[0];
+
+    println!("#### Internal Representation"); // {{{
+    {
+        // The following takes 4 bytes, one byte for each character.
+        let hello = String::from("Hola");
+        // The following is 24 bytes, 2 bytes for each character.
+        let hello = String::from("Здравствуйте");
+
+        // UTF-8 takes two bytes for each character. This is why trying to pull a character out of
+        // the String via index is not valid: &hello[0] represents the 0th BYTE, not the 0th CHAR.
+        // Thus, to avoid the confusion, Rust just refuses to compile this code and instead has you
+        // use other methods to retrieve characters from Strings.
+    }
     // }}}
+
+    println!("#### Bytes and Scalar Values and Grapheme Clusters! Oh My!"); // {{{
+    // Grapheme clusters are the closest thing to what we would call "letters". For example, there
+    // are, in ascending order of abstraction:
+    //   1. u8 values.
+    //      [224, 164, 168, 224, 164, 174, 224, 164, 184, 224, 165, 141, 224, 164, 164, 224, 165, 135]
+    //   2. Characters, which might be "letters" or diacritics that get combined later.
+    //      ['न', 'म', 'स', '्', 'त', 'े']
+    //   3. Grapheme clusters, which are the final "letters" that might be recognized by a human
+    //      reader.
+    //      ["न", "म", "स्", "ते"]
+    // }}}
+
+    // }}}
+
+    println!("### Slicing Strings"); // {{{
+    {
+        let hello = "Здравствуйте";
+        let s = &hello[0..4];
+        dbg!(s);
+        // The following will result in a runtime error, since З is 2 bytes, and we're only
+        // asking for the first byte.
+        // let s = &hello[0..1];
+    }
+    // }}}
+
+    println!("### Methods for Iterating Over Strings"); // {{{
+    for c in "Зд".chars() {
+        println!("{c}");
+    }
+    for b in "Зд".bytes() {
+        println!("{b}");
+    }
+    // }}}
+
+    println!("### Strings Are Not So Simple"); // {{{
+    // }}}
+
     // }}}
 }
 
